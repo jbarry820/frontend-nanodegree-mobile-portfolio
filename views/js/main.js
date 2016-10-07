@@ -422,39 +422,49 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
    // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineDx (elem, size) {
+  /*function determineDx (elem, size) {
     var oldWidth = elem.offsetWidth;
     var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldSize = oldWidth / windowWidth;
+    var oldSize = oldWidth / windowWidth;*/
 
     // Changes the slider value to a percent width
-    function sizeSwitcher (size) {
+    //I changed this from the original based on the online class
+    function changePizzaSizes(size) {
       switch(size) {
         case "1":
-          return 0.25;
+          newWidth = 25;
+          break;
         case "2":
-          return 0.3333;
+          newWidth = 33.3;
+          break;
         case "3":
-          return 0.5;
+          newWidth = 50;
+          break;
         default:
           console.log("bug in sizeSwitcher");
       }
+
+      var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+
+      for (var i = 0; i < randomPizzas.length; i++) {
+        randomPizzas[i].style.width = newWidth + "%";
+      }
+
+      /*var newSize = sizeSwitcher(size);
+      var dx = (newSize - oldSize) * windowWidth;
+
+      return dx;*/
     }
-
-    var newSize = sizeSwitcher(size);
-    var dx = (newSize - oldSize) * windowWidth;
-
-    return dx;
-  }
 
   // Iterates through pizza elements on the page and changes their widths
-  function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+  /*function changePizzaSizes(size) {
+    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+    for (var i = 0; i < randomPizzas.length; i++) {
+      //var dx = determineDx(randomPizzas)[i], size);
+      var newwidth = (randomPizzas)[i].offsetWidth + dx) + 'px';
+      randomPizzas[i].style.width = newwidth;
     }
-  }
+  }*/
 
   changePizzaSizes(size);
 
@@ -468,6 +478,7 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+
 for (var i = 2; i < 100; i++) {
   var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
@@ -492,6 +503,18 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   }
   console.log("Average scripting time to generate last 10 frames: " + sum / 10 + "ms");
 }
+// I got this from the lesson on FSL
+function getDomNodeArray(selector) {
+  // get the elements as a DOM collection
+  var elemCollection = document.querySelectorAll(selector);
+
+  // coerce the DOM collection into an array
+  var elemArray = Array.prototype.slice.apply(elemCollection);
+
+  return elemArray;
+};
+
+var divs = getDomNodeArray('.mover');
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
@@ -501,10 +524,16 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  //changed the following line from "ar items = document.querySelectorAll('.mover');"
+  var items = document.getElementsByClassName('mover');
+
+  var scrollPos = (document.body.scrollTop / 1250); // took out of loop
+  var phase;
+
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    phase = Math.sin((scrollPos) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    //console.log("This is phase" + phase);
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.

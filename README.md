@@ -1,19 +1,19 @@
 ## Website Performance Optimization portfolio project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+This online portfolio has been optimized for speed! In particular, the critical rendering path has been optimized and this page renders as quickly as possible by applying the techniques picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
-To get started, check out the repository and inspect the code.
+The repository was checked out and the code was inspected.
 
 ### Getting started
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+####Part 1: index.html has been optimized to a score of 97 using PageSpeed Insights score
 
-Some useful tips to help you get started:
+This was started with these useful tips:
 
 1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+1. Inspect the site on your phone, by running a local server
 
-  ```bash
+  ``` bash
   $> cd /path/to/your-project-folder
   $> python -m SimpleHTTPServer 8080
   ```
@@ -30,11 +30,11 @@ Some useful tips to help you get started:
 
 Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
-####Part 2: Optimize Frames per Second in pizza.html
+####Part 2: Frames per Second have been optimized in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+To optimize views/pizza.html, I modified views/js/main.js until my frames per second rate was 60 fps or higher. You will find comments in main.js on how I modified the file.
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+I found the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 
 ### Optimization Tips and Tricks
 * [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
@@ -53,3 +53,20 @@ The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstra
 
 * <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
 * <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+
+### To use this project with Gulp
+* From the root folder type "gulp".
+* A folder called "build" is created.
+* Run index.html from the "build" folder.
+* To test the pagespeed with the minified files that gulp creates:
+ ``` bash
+  $> cd /path/to/your-project-folder/build
+  $> python -m SimpleHTTPServer 8080
+  ```
+* Then
+  ``` bash
+  $> cd /path/to/your-project-folder/build
+  $> ./ngrok http 8080
+  ```
+
+
